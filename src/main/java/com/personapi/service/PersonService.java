@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonService {
 
@@ -25,7 +28,7 @@ public class PersonService {
     @PostMapping
     public MessageRespondeDTO createPerson(PersonDTO personDTO){
         Person personToSaved = personMapper.toModel(personDTO);
-        
+
         Person personSaved = personRepository.save(personToSaved);
         return MessageRespondeDTO
                 .builder()
@@ -34,4 +37,9 @@ public class PersonService {
     }
 
 
+    public List<PersonDTO> listAll() {
+       List<Person> allPersons = personRepository.findAll();
+
+       return allPersons.stream().map(personMapper::toDTO).collect(Collectors.toList());
+    }
 }
