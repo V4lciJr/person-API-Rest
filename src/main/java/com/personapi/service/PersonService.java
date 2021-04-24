@@ -1,6 +1,5 @@
 package com.personapi.service;
 
-import com.personapi.controller.PersonController;
 import com.personapi.dto.request.PersonDTO;
 import com.personapi.dto.response.MessageRespondeDTO;
 import com.personapi.entity.Person;
@@ -21,14 +20,14 @@ public class PersonService {
 
     private PersonRepository personRepository;
 
-    private PersonMapper personMapper = PersonMapper.INSTANCE;
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     @PostMapping
     public MessageRespondeDTO createPerson(PersonDTO personDTO){
         Person personToSaved = personMapper.toModel(personDTO);
 
         Person personSaved = personRepository.save(personToSaved);
-        return createMessageResponse(personSaved.getId(), "Create person with ID");
+        return createMessageResponse(personSaved.getId(), "Created person with ID");
     }
 
 
