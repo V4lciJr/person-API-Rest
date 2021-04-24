@@ -7,25 +7,21 @@ import com.personapi.entity.Person;
 import com.personapi.exceptions.PersonNotFoundException;
 import com.personapi.mapper.PersonMapper;
 import com.personapi.repository.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
 
     private PersonRepository personRepository;
 
     private PersonMapper personMapper = PersonMapper.INSTANCE;
-
-    @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     @PostMapping
     public MessageRespondeDTO createPerson(PersonDTO personDTO){
